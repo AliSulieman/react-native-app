@@ -12,7 +12,7 @@ export default class login extends Component {
                         height: 300,
                         borderColor: 'grey',
                         backgroundColor: 'grey',
-                        round: 'true'
+
                     }
                     }>
                         <Card.Title style={{ color: 'blue' }}>Sign In</Card.Title>
