@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TextInput, ImageBackground } from 'react-native';
+import { Text, View, StyleSheet, Image, TextInput, ImageBackground, Button } from 'react-native';
 import { Card } from 'react-native-elements'
 import { round } from 'react-native-reanimated';
 export default class login extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ImageBackground style={styles.image} source={require('../../images/greece.png')}>
-                    <Card containerStyle={{
-                        width: 300,
-                        height: 300,
-                        borderColor: 'grey',
-                        backgroundColor: 'grey',
 
-                    }
-                    }>
-                        <Card.Title style={{ color: 'blue' }}>Sign In</Card.Title>
-                    </Card>
-                </ImageBackground>
+                <TextInput style={styles.userinput} placeholder="Email">
 
+                </TextInput>
+                <TextInput style={styles.userinputtwo} placeholder="Password">
+
+                </TextInput>
             </View>
         );
     }
@@ -26,8 +20,11 @@ export default class login extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: 'salmon',
+        flexDirection: "colum",
         flex: 1,
-        flexDirection: "column"
+        justifyContent: "center",
+        alignItems: "center"
     },
     paragraph: {
         margin: 24,
@@ -37,26 +34,43 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#34495e',
     },
-    logo: {
-        height: 128,
-        width: 128,
-        marginBottom: 80
+    button: {
+        height: 40,
+        width: 250,
+        borderRadius: 5,
+        backgroundColor: '#83bec4',
+        color: 'white',
+        marginTop: 30,
+        textAlign: 'center',
+        alignSelf: 'center',
+
     },
     userinput: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
+
+
         height: 40,
-        borderColor: 'grey',
-        borderWidth: 3,
-        width: 190,
-        marginBottom: 140
+        width: 250,
+        borderRadius: 5,
+        backgroundColor: '#83bec4',
+        color: 'white',
+        marginTop: 30,
+        textAlign: 'center',
+        alignSelf: 'center',
+
+
     },
-    image: {
-        flex: 1,
-        resizeMode: "cover",
-        justifyContent: "center",
-        height: 812,
-        width: 812
+    userinputtwo: {
+
+        height: 40,
+        width: 250,
+        borderRadius: 5,
+        backgroundColor: '#83bec4',
+        color: 'white',
+        marginTop: 30,
+        textAlign: 'center',
+        alignSelf: 'center',
+
+
     },
+
 });
