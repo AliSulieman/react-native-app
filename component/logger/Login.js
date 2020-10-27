@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 //import { Button } from 'react-native-elements'
 import { round } from 'react-native-reanimated';
+
 export default class login extends Component {
     render() {
+
+
         return (
 
             <View style={styles.container}>
@@ -21,7 +24,7 @@ export default class login extends Component {
                         <Text style={styles.textsty}>Login</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.ops}>
+                    <TouchableOpacity style={styles.ops} onPress={() => this.props.navigation.navigate('signUp')} >
                         <Text style={styles.textst}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
