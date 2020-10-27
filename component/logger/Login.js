@@ -7,6 +7,7 @@ export default class login extends Component {
         return (
 
             <View style={styles.container}>
+
                 <Image style={styles.logo} source={require("../../images/logo.png")} />
 
                 <TextInput style={styles.userinput} placeholder="Email">
@@ -15,10 +16,16 @@ export default class login extends Component {
                 <TextInput style={styles.userinputtwo} placeholder="Password">
 
                 </TextInput>
+                <View style={{ flex: 2, flexDirection: 'row', marginTop: 30 }}>
+                    <TouchableOpacity style={styles.op}>
+                        <Text style={styles.textsty}>Login</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.op}>
-                    <Text style={styles.textsty}>Login</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.ops}>
+                        <Text style={styles.textst}>Sign Up</Text>
+                    </TouchableOpacity>
+                </View>
+
 
             </View>
         );
@@ -31,23 +38,34 @@ const styles = StyleSheet.create({
         flexDirection: "colum",
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
-    },
-    paragraph: {
-        margin: 24,
-        marginTop: 0,
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: '#34495e',
+        alignItems: "center",
+
     },
     op: {
         backgroundColor: '#83bec4',
         height: 40,
-        width: 250,
+        width: 150,
         marginTop: 30,
+        marginRight: 20,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: 'salmon'
+
+    },
+    ops: {
+        backgroundColor: '#83bec4',
+        height: 40,
+        width: 150,
+        marginTop: 30,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: 'salmon'
+
+
+
     },
     logo: {
+        marginTop: 100,
         height: 128,
         width: 128,
     },
@@ -57,14 +75,11 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#83bec4',
         color: 'white',
-        marginTop: 30,
+        marginTop: 50,
         textAlign: 'center',
         alignSelf: 'center',
-
-
     },
     userinputtwo: {
-
         height: 40,
         width: 250,
         borderRadius: 5,
@@ -73,8 +88,6 @@ const styles = StyleSheet.create({
         marginTop: 30,
         textAlign: 'center',
         alignSelf: 'center',
-
-
     },
     buttonText: {
         fontFamily: 'Baskerville',
@@ -83,10 +96,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textsty: {
-        paddingLeft: 100,
+        paddingLeft: 50,
         paddingTop: 10,
         fontFamily: 'Baskerville',
-        fontSize: 20,
+        fontSize: 18,
+    },
+    textst: {
+        paddingLeft: 40,
+        paddingTop: 10,
+        fontFamily: 'Baskerville',
+        fontSize: 18,
     }
 
 });
