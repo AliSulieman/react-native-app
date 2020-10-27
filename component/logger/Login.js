@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        height: 1000
 
     },
     op: {
@@ -60,9 +61,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: 'salmon'
-
-
-
     },
     logo: {
         marginTop: 100,
