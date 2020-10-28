@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
 import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 
-export default class signup extends Component {
-    render() {
-        return (
-            <View style={styles.container}>
+export default function signup() {
 
-                <Image style={styles.logo} source={require("../../images/guy.png")} />
+    return (
+        <View style={styles.container}>
 
-                <TextInput style={styles.input} placeholder="Full Name">
+            <Image style={styles.logo} source={require("../../images/guy.png")} />
 
-                </TextInput>
+            <TextInput style={styles.input} placeholder="Full Name">
 
-                <TextInput style={styles.textinput} placeholder="Email">
+            </TextInput>
 
-                </TextInput>
+            <TextInput style={styles.textinput} placeholder="Email">
 
-                <TextInput style={styles.textinput} placeholder="Password">
+            </TextInput>
 
-                </TextInput>
-                <View>
-                    <TouchableOpacity style={styles.opacity}>
-                        <Text style={{
-                            fontFamily: 'Baskerville',
-                            fontSize: 18,
-                            paddingLeft: 50,
-                            paddingTop: 9
-                        }}>
-                            Submit
+            <TextInput style={styles.textinput} placeholder="Password">
+
+            </TextInput>
+            <View>
+                <TouchableOpacity style={styles.opacity}>
+                    <Text style={{
+                        fontFamily: 'Baskerville',
+                        fontSize: 18,
+                        paddingLeft: 50,
+                        paddingTop: 9
+                    }}>
+                        Submit
                         </Text>
-                    </TouchableOpacity>
-                </View>
-
+                </TouchableOpacity>
             </View>
-        )
-    }
+
+        </View>
+    )
+
 }
 const styles = StyleSheet.create({
     container: {

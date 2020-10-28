@@ -1,40 +1,34 @@
 import React, { Component } from 'react';
 import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
-//import { Button } from 'react-native-elements'
-import { round } from 'react-native-reanimated';
-
-export default class login extends Component {
-    render() {
 
 
-        return (
-
-            <View style={styles.container}>
-
-                <Image style={styles.logo} source={require("../../images/logo.png")} />
-
-                <TextInput style={styles.userinput} placeholder="Email">
-
-                </TextInput>
-                <TextInput style={styles.userinputtwo} placeholder="Password">
-
-                </TextInput>
-                <View style={{ flex: 2, flexDirection: 'row', marginTop: 30 }}>
-                    <TouchableOpacity style={styles.op}>
-                        <Text style={styles.textsty}>Login</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.ops} onPress={() => this.props.navigation.navigate('signUp')} >
-                        <Text style={styles.textst}>Sign Up</Text>
-                    </TouchableOpacity>
-                </View>
 
 
+export default function login({ navigation }) {
+    return (
+        <View style={styles.container}>
+
+            <Image style={styles.logo} source={require("../../images/logo.png")} />
+
+            <TextInput style={styles.userinput} placeholder="Email">
+
+            </TextInput>
+            <TextInput style={styles.userinputtwo} placeholder="Password">
+
+            </TextInput>
+            <View style={{ flex: 2, flexDirection: 'row', marginTop: 30 }}>
+                <TouchableOpacity style={styles.op}>
+                    <Text style={styles.textsty}>Login</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.ops} onPress={() => navigation.navigate('SignUp')} >
+                    <Text style={styles.textst}>Sign Up</Text>
+                </TouchableOpacity>
             </View>
-        );
-    }
-}
+        </View>
+    );
 
+}
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'salmon',
@@ -110,3 +104,5 @@ const styles = StyleSheet.create({
     }
 
 });
+
+

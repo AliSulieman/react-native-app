@@ -1,11 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { render } from 'react-dom';
+
 import { StyleSheet, Text, View, Button } from 'react-native';
-import Signup from './component/logger/signup';
 import Login from "./component/logger/Login"
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import Signup from './component/logger/signup';
 
 const Stack = createStackNavigator();
 export default class App extends React.Component {
@@ -13,18 +12,13 @@ export default class App extends React.Component {
     return (
 
       <View>
-        <Login>
-
-        </Login>
+        <Login></Login>
         <NavigationContainer>
           <Stack.Navigator>
-
+            <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="signUp" component={Signup} />
-
           </Stack.Navigator>
-
         </NavigationContainer>
-
       </View>
 
 
@@ -32,8 +26,3 @@ export default class App extends React.Component {
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-
-  },
-});
