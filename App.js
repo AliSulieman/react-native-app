@@ -1,28 +1,36 @@
 import React from 'react';
 
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { View } from 'react-native';
 import Login from "./component/logger/Login"
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
 import Signup from './component/logger/signup';
+import 'react-native-gesture-handler';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import signup from './component/logger/signup';
 
-const Stack = createStackNavigator();
+
 export default class App extends React.Component {
   render() {
     return (
 
       <View>
-        <Login></Login>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name="login" component={Login} />
-            <Stack.Screen name="signUp" component={Signup} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <Router>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/signup" component={signup} />
+        </Router>
+
+
       </View>
 
 
     )
+
   };
+
 }
+
 

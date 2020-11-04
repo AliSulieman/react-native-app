@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
+import { useHistory } from 'react-router-dom';
 
 
+export default function login() {
+    const history = useHistory();
 
 
-export default function login({ navigation }) {
     return (
         <View style={styles.container}>
 
@@ -21,7 +23,7 @@ export default function login({ navigation }) {
                     <Text style={styles.textsty}>Login</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.ops} onPress={() => navigation.navigate('SignUp')} >
+                <TouchableOpacity style={styles.ops} onPress={() => history.push("/signup")}>
                     <Text style={styles.textst}>Sign Up</Text>
                 </TouchableOpacity>
             </View>

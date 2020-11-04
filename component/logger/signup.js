@@ -16,22 +16,36 @@ export default function signup() {
 
             </TextInput>
 
-            <TextInput style={styles.textinput} placeholder="Password">
+            <TextInput style={styles.texttt} placeholder="Password">
 
             </TextInput>
-            <View>
+
+
+            <View style={{ flex: 2, flexDirection: 'row' }}>
                 <TouchableOpacity style={styles.opacity}>
                     <Text style={{
                         fontFamily: 'Baskerville',
                         fontSize: 18,
                         paddingLeft: 50,
                         paddingTop: 9
+
+                    }}>
+                        Login
+                        </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.opacity}>
+                    <Text style={{
+                        fontFamily: 'Baskerville',
+                        fontSize: 18,
+                        paddingLeft: 50,
+                        paddingTop: 9,
+
                     }}>
                         Submit
                         </Text>
                 </TouchableOpacity>
             </View>
-
         </View>
     )
 
@@ -44,6 +58,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         height: 1000
+
+
     },
     opacity: {
         backgroundColor: '#83bec4',
@@ -53,13 +69,10 @@ const styles = StyleSheet.create({
         marginRight: 20,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: 'salmon'
+        borderColor: 'salmon',
+
     },
-    logo: {
-        height: 128,
-        width: 128,
-        marginBottom: 430
-    },
+
     input: {
         backgroundColor: '#83bec4',
         height: 40,
@@ -81,8 +94,20 @@ const styles = StyleSheet.create({
         marginRight: 20
 
     },
-    logo: {
+    texttt: {
+        backgroundColor: '#83bec4',
+        height: 40,
+        width: 250,
+        borderWidth: 1,
+        borderColor: 'salmon',
         marginBottom: 20,
+        textAlign: 'center',
+        marginRight: 20
+
+    },
+    logo: {
+
+        marginBottom: 40,
         height: 128,
         width: 128,
     },
