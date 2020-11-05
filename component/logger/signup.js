@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
+import { useHistory } from 'react-router-dom';
 
 export default function signup() {
+    const history = useHistory();
 
     return (
         <View style={styles.container}>
@@ -22,7 +24,7 @@ export default function signup() {
 
 
             <View style={{ flex: 2, flexDirection: 'row' }}>
-                <TouchableOpacity style={styles.opacity}>
+                <TouchableOpacity style={styles.opacity} onPress={() => history.push("/")}>
                     <Text style={{
                         fontFamily: 'Baskerville',
                         fontSize: 18,
@@ -34,7 +36,7 @@ export default function signup() {
                         </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.opacity}>
+                <TouchableOpacity style={styles.opacity} >
                     <Text style={{
                         fontFamily: 'Baskerville',
                         fontSize: 18,

@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 export default function login() {
     const history = useHistory();
 
-
     return (
         <View style={styles.container}>
 
