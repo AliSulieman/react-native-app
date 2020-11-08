@@ -14,6 +14,7 @@ import signup from './component/logger/signup';
 
 
 export default class App extends React.Component {
+
   render() {
     return (
 

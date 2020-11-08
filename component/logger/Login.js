@@ -1,24 +1,50 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
+
 import { useHistory } from 'react-router-dom';
 
 
 export default function login() {
-    const history = useHistory();
 
+    const history = useHistory();
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
+
+    //     const submit = () => {
+
+    //         fetch()
+
+
+
+
+
+
+
+    //         //validate data (do this later after you connected api to ui)
+    //         //call the api
+    //         // fetch()
+    //         //     .then((resp) => resp.json())
+    //         //     .then((jsonBody) =>  
+    //         //     .catch((err) => console.log(err))
+    //     //     // //take api response
+    //     //     //if successsful let them
+    //     //     //else tell user what is going on
+    // }
     return (
         <View style={styles.container}>
 
             <Image style={styles.logo} source={require("../../images/logo.png")} />
 
-            <TextInput style={styles.userinput} placeholder="Email">
+            <TextInput style={styles.userinput} placeholder="Email" value={username} onChangeText={(Value) => setUsername(Value)} >
 
             </TextInput>
-            <TextInput style={styles.userinputtwo} placeholder="Password">
+
+            <TextInput style={styles.userinputtwo} placeholder="Password" value={password} onChangeText={(Value) => setPassword(Value)} >
 
             </TextInput>
             <View style={{ flex: 2, flexDirection: 'row', marginTop: 30 }}>
-                <TouchableOpacity style={styles.op}>
+                <TouchableOpacity style={styles.op} >
                     <Text style={styles.textsty}>Login</Text>
                 </TouchableOpacity>
 
