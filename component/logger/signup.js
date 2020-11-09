@@ -1,7 +1,6 @@
 import React, { Component, useState } from 'react';
 import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useHistory } from 'react-router-dom';
-import { AsyncStorage } from "@react-native-community/async-storage"
 
 export default function signup() {
     const history = useHistory();
@@ -10,45 +9,44 @@ export default function signup() {
     const [password, setPassword] = useState('')
     const [fullname, setFullname] = useState('')
 
-
     const submit = () => {
         const payload = {
             email: username,
             password: password,
-            name: fullname
+            fullname: fullname
         }
-        fetch('http://127.0.0.1:8000/add-user/', {
+
+        fetch('http://localhost:8000/add-user/', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload)
-
-        }).then((response) => response.json())
+        })
+            .then((response) => response.json())
             .then((res => {
-                console.log(res)
+                history.push('/homepage')
             })).catch(rejected => {
                 console.log(rejected);
             })
 
     }
 
-
     return (
         <View style={styles.container}>
 
             <Image style={styles.logo} source={require("../../images/guy.png")} />
 
-            <TextInput style={styles.input} placeholder="Full Name" Value={fullname} onChange={(Value) => (setFullname(Value))}>
+            <TextInput style={styles.input} placeholder="Full Name" Value={fullname} onChangeText={(Value) => setFullname(Value)}>
 
             </TextInput>
 
-            <TextInput style={styles.textinput} placeholder="Email" Value={username} onChange={(Value) => (setUsername(Value))}>
+            <TextInput style={styles.textinput} placeholder="Email" Value={username} onChangeText={(Value) => (setUsername(Value))}>
 
             </TextInput>
 
-            <TextInput style={styles.texttt} placeholder="Password" Value={password} onChange={(Value) => (setPassword(Value))}>
+            <TextInput style={styles.texttt} placeholder="Password" Value={password} onChangeText={(Value) => (setPassword(Value))}>
 
             </TextInput>
 
@@ -62,11 +60,11 @@ export default function signup() {
                         paddingTop: 9
 
                     }}>
-                        Login
+                        Back
                         </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.opacity} onPress={submit} >
+                <TouchableOpacity style={styles.opacity} onPress={submit} disabled={username.trim() === "" || fullname.trim() === "" || password.trim() === ""}>
                     <Text style={{
                         fontFamily: 'Baskerville',
                         fontSize: 18,

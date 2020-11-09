@@ -5,32 +5,38 @@ import { useHistory } from 'react-router-dom';
 
 
 export default function login() {
-
     const history = useHistory();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    //console.log(username)
+    const submit = () => {
+        const payload = {
+            email: username,
+            password: password
+        }
 
+        fetch('http://localhost:8000/list-user/', {
+            method: 'POST',
 
-    //     const submit = () => {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
 
-    //         fetch()
+            },
+            body: JSON.stringify(payload)
+        }).then((response) => {
+            if (response.status != 200) {
+                throw ("Unauthorized")
+            }
+        }).then((res => {
+            console.log(res)
+            history.push('/homepage')
+            return
+        })).catch(rejected => {
+            console.log(rejected);
+        })
 
-
-
-
-
-
-
-    //         //validate data (do this later after you connected api to ui)
-    //         //call the api
-    //         // fetch()
-    //         //     .then((resp) => resp.json())
-    //         //     .then((jsonBody) =>  
-    //         //     .catch((err) => console.log(err))
-    //     //     // //take api response
-    //     //     //if successsful let them
-    //     //     //else tell user what is going on
-    // }
+    }
     return (
         <View style={styles.container}>
 
@@ -44,7 +50,7 @@ export default function login() {
 
             </TextInput>
             <View style={{ flex: 2, flexDirection: 'row', marginTop: 30 }}>
-                <TouchableOpacity style={styles.op} >
+                <TouchableOpacity style={styles.op} onPress={submit} disabled={username.trim() === "" || password.trim() === ""} >
                     <Text style={styles.textsty}>Login</Text>
                 </TouchableOpacity>
 

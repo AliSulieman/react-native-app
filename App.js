@@ -2,15 +2,14 @@ import React from 'react';
 
 import { View } from 'react-native';
 import Login from "./component/logger/Login"
-import Signup from './component/logger/signup';
 import 'react-native-gesture-handler';
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
-  Link
+
 } from "react-router-dom";
 import signup from './component/logger/signup';
+import Homepage from './component/logger/homepage'
 
 
 export default class App extends React.Component {
@@ -22,6 +21,7 @@ export default class App extends React.Component {
         <Router>
           <Route exact path="/" component={Login} />
           <Route exact path="/signup" component={signup} />
+          <Route exact path="/homepage" component={Homepage} />
 
         </Router>
 
