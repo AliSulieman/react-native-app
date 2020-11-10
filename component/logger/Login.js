@@ -8,7 +8,7 @@ export default function login() {
     const history = useHistory();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    //console.log(username)
+
     const submit = () => {
         const payload = {
             email: username,
@@ -29,11 +29,12 @@ export default function login() {
                 throw ("Unauthorized")
             }
         }).then((res => {
-            console.log(res)
+
             history.push('/homepage')
             return
         })).catch(rejected => {
-            console.log(rejected);
+            alert("user doesnt exist")
+
         })
 
     }
@@ -93,9 +94,7 @@ const styles = StyleSheet.create({
         borderColor: 'salmon'
     },
     logo: {
-        marginTop: 100,
-        height: 128,
-        width: 128,
+
     },
     userinput: {
         height: 40,

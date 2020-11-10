@@ -15,18 +15,19 @@ import Homepage from './component/logger/homepage'
 export default class App extends React.Component {
 
   render() {
-    return (
 
-      <View>
+    return (
+      < View >
+
         <Router>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Homepage} />
           <Route exact path="/signup" component={signup} />
-          <Route exact path="/homepage" component={Homepage} />
+          <Route exact path="/homepage" component={Login} />
 
         </Router>
 
 
-      </View>
+      </View >
 
 
     )
