@@ -1,9 +1,5 @@
 import React, { Component, useState } from 'react';
 import { Text, View, StyleSheet, Image, TextInput, Button, TouchableOpacity } from 'react-native';
-import { Card } from 'react-native-elements';
-import { FlatList } from 'react-native-gesture-handler';
-
-
 
 
 
@@ -12,31 +8,35 @@ export default function Homepage() {
     const [Search, setSearch] = useState('')
     const [result, setResult] = useState([])
 
+    const filterURLs = (element, index, arr) => {
+        arr[index] = element.urls.full
+    }
+
     const submit = () => {
         // const payload = {
         //     email: username,
         //     password: password
         // }
+        const key = "zoiVwhEan-E5dkAD4Km_-n2ybWCiytRXyMwKegHc3_0"
 
-        fetch(`https://api.unsplash.com/photos/?client_id=${key}&query=${Search}`, {
+        fetch(`https://api.unsplash.com/search/photos/?client_id=${key}&query=${Search}&per_page=10&page=1`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify()
-        }).then((res) => res.json())
+        })
+            .then((res) => res.json())
             .then((response) => {
-                setResult([response])
-                //console.log(result)
+                let images = response.results
+                images.forEach(filterURLs);
+                setResult(images)
             })
             .catch(rejected => {
                 alert(rejected)
-
             })
-
     }
-
 
     return (
         <View style={styles.container}>
@@ -49,13 +49,21 @@ export default function Homepage() {
                     Submit
                 </Text>
             </TouchableOpacity>
-
-            <FlatList
-                data={result}>
-
-
-            </FlatList>
-
+            <ul>
+                {result.map((url) => {
+                    return (
+                        <li id={url} style={{ listStyleType: 'none' }}>
+                            <Image source={{ uri: url }} style={{
+                                marginBottom: 40,
+                                height: 100,
+                                width: 100,
+                                marginLeft: 270,
+                                marginTop: 40,
+                            }} />
+                        </li>
+                    )
+                })}
+            </ul>
 
 
         </View>
