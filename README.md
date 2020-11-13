@@ -1,3 +1,3 @@
 # react-native-app
 
-This Application will integrat with the CURD api i created using Django.
+This Application will integrat with the CRUD api i created using Django.
