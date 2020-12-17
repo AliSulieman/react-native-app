@@ -20,9 +20,9 @@ export default class App extends React.Component {
       < View >
 
         <Router>
-          <Route exact path="/" component={Homepage} />
+          <Route exact path="/" component={Login} />
           <Route exact path="/signup" component={signup} />
-          <Route exact path="/homepage" component={Login} />
+          <Route exact path="/homepage" component={Homepage} />
 
         </Router>
 

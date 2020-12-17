@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         marginRight: 20,
         borderWidth: 1,
         borderColor: 'salmon',
-        marginBottom: 20,
+        marginBottom: 30,
         textAlign: 'center'
     },
     textinput: {
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         width: 250,
         borderWidth: 1,
         borderColor: 'salmon',
-        marginBottom: 20,
+        marginBottom: 30,
         textAlign: 'center',
         marginRight: 20
 
@@ -131,15 +131,15 @@ const styles = StyleSheet.create({
         width: 250,
         borderWidth: 1,
         borderColor: 'salmon',
-        marginBottom: 20,
+        marginBottom: 30,
         textAlign: 'center',
         marginRight: 20
 
     },
     logo: {
-        marginBottom: 40,
-        height: 128,
-        width: 128,
+        marginBottom: 55,
+        height: 300,
+        width: 300,
     },
 
 })

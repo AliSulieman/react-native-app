@@ -8,6 +8,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material/snackbar": "^8.0.0",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.8.0",
