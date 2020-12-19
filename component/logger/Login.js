@@ -44,8 +44,6 @@ export default function login() {
             }
         }).then((res => {
             history.push('/homepage')
-
-
         })).catch(rejected => {
             setsnackBarOpen(true)
             setsnackBarMes(rejected)

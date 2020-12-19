@@ -24,9 +24,14 @@ export default function signup() {
             },
             body: JSON.stringify(payload)
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.status === 400) {
+                    throw ("email already exists")
+                }
+            })
             .then((res => {
                 history.push('/homepage')
+
             })).catch(rejected => {
                 console.log(rejected);
             })
