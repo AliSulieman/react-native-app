@@ -1,5 +1,7 @@
 import React, { Component, useState } from 'react';
-import { Text, View, StyleSheet, Image, TextInput, Button, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
+import { Card, Image, ListItem } from 'react-native-elements';
+import { FlatList } from 'react-native-gesture-handler';
 
 
 
@@ -13,13 +15,9 @@ export default function Homepage() {
     }
 
     const submit = () => {
-        // const payload = {
-        //     email: username,
-        //     password: password
-        // }
         const key = "zoiVwhEan-E5dkAD4Km_-n2ybWCiytRXyMwKegHc3_0"
 
-        fetch(`https://api.unsplash.com/search/photos/?client_id=${key}&query=${Search}&per_page=10&page=1`, {
+        fetch(`https://api.unsplash.com/search/photos/?client_id=${key}&query=${Search}&per_page=12&page=1`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -49,24 +47,29 @@ export default function Homepage() {
                     Submit
                 </Text>
             </TouchableOpacity>
-            <ul>
-                {result.map((url) => {
+
+            <FlatList
+                nativeID="amer"
+                data={result}
+                contentContainerStyle={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}
+                renderItem={({ item, index }) => {
                     return (
-                        <li id={url} style={{ listStyleType: 'none' }}>
-                            <Image source={{ uri: url }} style={{
-                                marginBottom: 40,
-                                height: 100,
-                                width: 100,
-                                marginLeft: 270,
-                                marginTop: 40,
-                            }} />
-                        </li>
-                    )
-                })}
-            </ul>
+                        <ListItem nativeID="wow" containerStyle={{ height: 'fit-content', width: "fit-content", padding: "none" }}   >
+                            <Image source={{ uri: item }} containerStyle={{ width: 200, height: 200 }} PlaceholderContent={< ActivityIndicator />} placeholderStyle={{ height: "100%", width: "100%" }} />
+                        </ListItem>)
+                }}
+                keyExtractor={
+                    (index) => { return index }
+                }
+            />
 
-
-        </View>
+        </View >
     )
 }
 const styles = StyleSheet.create({

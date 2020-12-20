@@ -1,7 +1,8 @@
 import React, { Component, useState } from 'react';
 import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useHistory } from 'react-router-dom';
-
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
 export default function signup() {
     const history = useHistory();
 
@@ -9,13 +10,18 @@ export default function signup() {
     const [password, setPassword] = useState('')
     const [fullname, setFullname] = useState('')
 
+    const [snackbarOpen, setsnackBarOpen] = useState(false)
+    const [snackBarMes, setsnackBarMes] = useState('')
+
+    const close = () => {
+        setsnackBarOpen(false)
+    }
     const submit = () => {
         const payload = {
             email: username,
             password: password,
             fullname: fullname
         }
-
         fetch('http://localhost:8000/add-user/', {
             method: 'POST',
             headers: {
@@ -26,14 +32,21 @@ export default function signup() {
         })
             .then((response) => {
                 if (response.status === 400) {
-                    throw ("email already exists")
+                    throw ("User already exists")
+                }
+                if (response.status === 405) {
+                    throw ("Method Not Allowed")
+                }
+                if (response.status === 422) {
+                    throw ("Password is short, Criteria: 6 or more characters")
                 }
             })
             .then((res => {
                 history.push('/homepage')
 
             })).catch(rejected => {
-                console.log(rejected);
+                setsnackBarOpen(true)
+                setsnackBarMes(rejected)
             })
 
     }
@@ -51,7 +64,7 @@ export default function signup() {
 
             </TextInput>
 
-            <TextInput style={styles.texttt} placeholder="Password" Value={password} onChangeText={(Value) => (setPassword(Value))}>
+            <TextInput style={styles.texttt} secureTextEntry={true} placeholder="Password" Value={password} onChangeText={(Value) => (setPassword(Value))}>
 
             </TextInput>
 
@@ -82,6 +95,25 @@ export default function signup() {
                 </TouchableOpacity>
             </View>
 
+            <Snackbar
+                //how to display
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                open={snackbarOpen}
+                autoHideDuration={6000}
+
+                message={snackBarMes}
+                onClose={close}
+                action={[
+                    <IconButton
+                        key="close"
+                        aria-label="close"
+                        color='inherit'
+                        onClick={close}
+                    >
+                        X
+                    </IconButton>
+                ]}
+            />
         </View>
     )
 

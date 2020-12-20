@@ -15,8 +15,6 @@ export default function login() {
     const [snackbarOpen, setsnackBarOpen] = useState(false)
     const [snackBarMes, setsnackBarMes] = useState('')
     // const [isIncorrectUser, setIsIncorrectUser] = useState(false)
-
-
     const close = () => {
         setsnackBarOpen(false)
     }
@@ -25,14 +23,11 @@ export default function login() {
             email: username,
             password: password
         }
-
         fetch('http://localhost:8000/list-user/', {
             method: 'POST',
-
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-
             },
             body: JSON.stringify(payload)
         }).then((response) => {
@@ -48,7 +43,6 @@ export default function login() {
             setsnackBarOpen(true)
             setsnackBarMes(rejected)
         })
-
     }
     return (
         <View style={styles.container}>
