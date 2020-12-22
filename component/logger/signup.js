@@ -1,9 +1,33 @@
 import React, { Component, useState } from 'react';
-import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useHistory } from 'react-router-dom';
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    },
+    label: {
+        textTransform: 'capitalize',
+    },
+    button: {
+        margin: theme.spacing(1),
+    },
+}));
+
 export default function signup() {
+
+    const classes = useStyles();
     const history = useHistory();
 
     const [username, setUsername] = useState('')
@@ -40,13 +64,17 @@ export default function signup() {
                 if (response.status === 422) {
                     throw ("Password is short, Criteria: 6 or more characters")
                 }
+                if (response.status === 401) {
+                    throw ("Email Is Not Valid")
+                }
             })
             .then((res => {
                 history.push('/homepage')
 
+
             })).catch(rejected => {
+
                 setsnackBarOpen(true)
-                setsnackBarMes(rejected)
             })
 
     }
@@ -56,43 +84,106 @@ export default function signup() {
 
             <Image style={styles.logo} source={require("../../images/guy.png")} />
 
-            <TextInput style={styles.input} placeholder="Full Name" Value={fullname} onChangeText={(Value) => setFullname(Value)}>
 
-            </TextInput>
 
-            <TextInput style={styles.textinput} placeholder="Email" Value={username} onChangeText={(Value) => (setUsername(Value))}>
+            <TextField style={{
+                height: 40,
+                width: 250,
+                marginRight: 20,
+                borderWidth: 1,
+                borderColor: 'salmon',
+                marginBottom: 30,
+                textAlign: 'center',
+                color: 'red'
 
-            </TextInput>
+            }}
+                label='Fullname' id="outlined-basic" variant="outlined" onChange={(value) => setFullname(value)} value={fullname}
+            >
+            </TextField>
 
-            <TextInput style={styles.texttt} secureTextEntry={true} placeholder="Password" Value={password} onChangeText={(Value) => (setPassword(Value))}>
 
-            </TextInput>
+            <TextField style={{
+                color: '#83bec4',
+                height: 40,
+                width: 250,
+                borderWidth: 1,
+                borderColor: 'salmon',
+                marginBottom: 30,
+                textAlign: 'center',
+                marginRight: 20
+
+            }}
+                label='Email' id="outlined-basic" variant="outlined" value={username} onChange={(value) => setUsername(value)}>
+            </TextField>
+
+
+
+            <TextField style={{
+
+                height: 40,
+                width: 250,
+                borderWidth: 1,
+                borderColor: 'salmon',
+                marginBottom: 30,
+                textAlign: 'center',
+                marginRight: 20
+
+            }}
+                label='Password' id="outlined-basic" variant="outlined" value={password} onChange={(value) => setPassword(value)}>
+            </TextField>
 
 
             <View style={{ flex: 2, flexDirection: 'row' }}>
-                <TouchableOpacity style={styles.opacity} onPress={() => history.push("/")}>
+                <Button style={{
+
+                    height: 40,
+                    width: 150,
+                    marginTop: 30,
+                    marginRight: 20,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: 'salmon',
+                }} classes={{
+                    root: classes.root, // class name, e.g. `classes-nesting-root-x`
+                    label: classes.label,
+                }} onClick={() => history.push("/")}>
                     <Text style={{
                         fontFamily: 'Baskerville',
-                        fontSize: 18,
-                        paddingLeft: 50,
-                        paddingTop: 9
+                        fontSize: 20,
+                        paddingLeft: 5,
+                        paddingTop: 9,
+                        marginBottom: 10
 
                     }}>
                         Back
                         </Text>
-                </TouchableOpacity>
+                </Button>
 
-                <TouchableOpacity style={styles.opacity} onPress={submit} disabled={username.trim() === "" || fullname.trim() === "" || password.trim() === ""}>
+                <Button style={{
+                    height: 40,
+                    width: 150,
+                    marginTop: 30,
+                    marginRight: 20,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: 'salmon',
+                }} classes={{
+                    root: classes.root, // class name, e.g. `classes-nesting-root-x`
+                    label: classes.label, // class name, e.g. `classes-nesting-label-x`
+                }}
+                    variant="contained" color="salmon"
+                    onClick={submit}>
                     <Text style={{
                         fontFamily: 'Baskerville',
-                        fontSize: 18,
-                        paddingLeft: 50,
+                        fontSize: 20,
+                        paddingLeft: 5,
                         paddingTop: 9,
+                        marginBottom: 10
 
                     }}>
                         Submit
                         </Text>
-                </TouchableOpacity>
+                </Button>
             </View>
 
             <Snackbar
@@ -114,7 +205,7 @@ export default function signup() {
                     </IconButton>
                 ]}
             />
-        </View>
+        </View >
     )
 
 }
