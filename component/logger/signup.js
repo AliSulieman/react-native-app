@@ -78,6 +78,17 @@ export default function signup() {
             })
 
     }
+    const handle = e => {
+        setFullname(e.target.fullname)
+    }
+
+    const handleEmail = e => {
+        setUsername(e.target.username)
+    }
+
+    const handlePass = e => {
+        setPassword(e.target.password)
+    }
 
     return (
         <View style={styles.container}>
@@ -97,7 +108,7 @@ export default function signup() {
                 color: 'red'
 
             }}
-                label='Fullname' id="outlined-basic" variant="outlined" onChange={(value) => setFullname(value)} value={fullname}
+                label='Fullname' id="outlined-basic" variant="outlined" value={fullname} onChange={handle}
             >
             </TextField>
 
@@ -113,7 +124,7 @@ export default function signup() {
                 marginRight: 20
 
             }}
-                label='Email' id="outlined-basic" variant="outlined" value={username} onChange={(value) => setUsername(value)}>
+                label='Email' id="outlined-basic" variant="outlined" value={username} onChange={handleEmail}>
             </TextField>
 
 
@@ -129,7 +140,7 @@ export default function signup() {
                 marginRight: 20
 
             }}
-                label='Password' id="outlined-basic" variant="outlined" value={password} onChange={(value) => setPassword(value)}>
+                label='Password' id="outlined-basic" variant="outlined" value={password} onChange={handlePass}>
             </TextField>
 
 
