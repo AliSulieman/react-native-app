@@ -6,6 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,54 +33,35 @@ export default function signup() {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [fullname, setFullname] = useState('')
+    const [fullname, setFullname] = useState("")
 
-    const [snackbarOpen, setsnackBarOpen] = useState(false)
-    const [snackBarMes, setsnackBarMes] = useState('')
+    const [error, setError] = useState('')
 
-    const close = () => {
-        setsnackBarOpen(false)
+    const validation = () => {
+        let isError = false;
+        const sit = {}
+        if (fullname.toString().length < 5) {
+            isError = true
+            sit.usernameErr = 'Must be more char'
+        }
+        if (isError) {
+            setFullname(fullname)
+            setError(...sit)
+        }
+        return isError
     }
     const submit = () => {
-        const payload = {
-            email: username,
-            password: password,
-            fullname: fullname
+        const errCheck = validation()
+        if (!errCheck) {
+            setFullname('')
+            setPassword('')
+            setUsername('')
+
         }
-        fetch('http://localhost:8000/add-user/', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload)
-        })
-            .then((response) => {
-                if (response.status === 400) {
-                    throw ("User already exists")
-                }
-                if (response.status === 405) {
-                    throw ("Method Not Allowed")
-                }
-                if (response.status === 422) {
-                    throw ("Password is short, Criteria: 6 or more characters")
-                }
-                if (response.status === 401) {
-                    throw ("Email Is Not Valid")
-                }
-            })
-            .then((res => {
-                history.push('/homepage')
-
-
-            })).catch(rejected => {
-
-                setsnackBarOpen(true)
-            })
-
     }
     const handle = e => {
         setFullname(e.target.fullname)
+
     }
 
     const handleEmail = e => {
@@ -90,12 +72,12 @@ export default function signup() {
         setPassword(e.target.password)
     }
 
+
+
     return (
         <View style={styles.container}>
 
             <Image style={styles.logo} source={require("../../images/guy.png")} />
-
-
 
             <TextField style={{
                 height: 40,
@@ -106,9 +88,14 @@ export default function signup() {
                 marginBottom: 30,
                 textAlign: 'center',
                 color: 'red'
-
             }}
+                errorText={error}
+                required={true}
+                placeholder='Chris Williams'
                 label='Fullname' id="outlined-basic" variant="outlined" value={fullname} onChange={handle}
+                InputLabelProps={{
+                    shrink: true
+                }}
             >
             </TextField>
 
@@ -122,15 +109,18 @@ export default function signup() {
                 marginBottom: 30,
                 textAlign: 'center',
                 marginRight: 20
-
             }}
+                InputLabelProps={{
+                    shrink: true
+                }}
+                placeholder='Chris@domain.com'
+
                 label='Email' id="outlined-basic" variant="outlined" value={username} onChange={handleEmail}>
             </TextField>
 
 
 
             <TextField style={{
-
                 height: 40,
                 width: 250,
                 borderWidth: 1,
@@ -140,7 +130,14 @@ export default function signup() {
                 marginRight: 20
 
             }}
-                label='Password' id="outlined-basic" variant="outlined" value={password} onChange={handlePass}>
+                InputLabelProps={{
+                    shrink: true
+                }}
+                label='Password'
+                type='password'
+                placeholder='password'
+                id="outlined-basic"
+                variant="outlined" value={password} onChange={handlePass}>
             </TextField>
 
 
@@ -157,7 +154,8 @@ export default function signup() {
                 }} classes={{
                     root: classes.root, // class name, e.g. `classes-nesting-root-x`
                     label: classes.label,
-                }} onClick={() => history.push("/")}>
+                }}
+                >
                     <Text style={{
                         fontFamily: 'Baskerville',
                         fontSize: 20,
@@ -197,25 +195,7 @@ export default function signup() {
                 </Button>
             </View>
 
-            <Snackbar
-                //how to display
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                open={snackbarOpen}
-                autoHideDuration={6000}
 
-                message={snackBarMes}
-                onClose={close}
-                action={[
-                    <IconButton
-                        key="close"
-                        aria-label="close"
-                        color='inherit'
-                        onClick={close}
-                    >
-                        X
-                    </IconButton>
-                ]}
-            />
         </View >
     )
 
