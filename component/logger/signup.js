@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
-
+import { Dimensions } from 'react-native';
 const useStyles = makeStyles((theme) => ({
     root: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -33,25 +33,37 @@ export default function signup() {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [fullname, setFullname] = useState("")
+    const [fullname, setFullname] = useState('')
 
-    const [error, setError] = useState('')
+    const [error, setError] = useState({})
+
 
     const validation = () => {
         let isError = false;
-        const sit = {}
-        if (fullname.toString().length < 5) {
+        let sit = {}
+        if (fullname.length < 4) {
+            //console.log(fullname, "here", fullname.length)
             isError = true
-            sit.usernameErr = 'Must be more char'
+            sit.fullnameErr = 'Must be more than 4 letter'
         }
-        if (isError) {
-            setFullname(fullname)
-            setError(...sit)
+        if (username.indexOf("@") === -1) {
+            isError = true
+            sit.userErr = 'Not A valid email'
+        }
+        if (password.length < 6) {
+            isError = true
+            sit.passErr = 'Password Must Be more than 6 characters'
+        }
+        if (true) {
+            //console.log("work here")
+            setError(sit)
         }
         return isError
     }
+
     const submit = () => {
         const errCheck = validation()
+        //console.log(error)
         if (!errCheck) {
             setFullname('')
             setPassword('')
@@ -60,19 +72,17 @@ export default function signup() {
         }
     }
     const handle = e => {
-        setFullname(e.target.fullname)
+        setFullname(e.target.value)
 
     }
 
     const handleEmail = e => {
-        setUsername(e.target.username)
+        setUsername(e.target.value)
     }
 
     const handlePass = e => {
-        setPassword(e.target.password)
+        setPassword(e.target.value)
     }
-
-
 
     return (
         <View style={styles.container}>
@@ -85,14 +95,20 @@ export default function signup() {
                 marginRight: 20,
                 borderWidth: 1,
                 borderColor: 'salmon',
-                marginBottom: 30,
+                marginBottom: 50,
                 textAlign: 'center',
                 color: 'red'
             }}
-                errorText={error}
                 required={true}
+
+                error={error.fullnameErr}
+                helperText={error.fullnameErr ? error.fullnameErr : ''}
                 placeholder='Chris Williams'
-                label='Fullname' id="outlined-basic" variant="outlined" value={fullname} onChange={handle}
+                label='Fullname'
+                id="outlined-basic"
+                variant="outlined"
+                value={fullname}
+                onChange={handle}
                 InputLabelProps={{
                     shrink: true
                 }}
@@ -106,13 +122,15 @@ export default function signup() {
                 width: 250,
                 borderWidth: 1,
                 borderColor: 'salmon',
-                marginBottom: 30,
+                marginBottom: 45,
                 textAlign: 'center',
                 marginRight: 20
             }}
                 InputLabelProps={{
                     shrink: true
                 }}
+                error={error.userErr}
+                helperText={error.userErr ? error.userErr : ''}
                 placeholder='Chris@domain.com'
 
                 label='Email' id="outlined-basic" variant="outlined" value={username} onChange={handleEmail}>
@@ -133,8 +151,11 @@ export default function signup() {
                 InputLabelProps={{
                     shrink: true
                 }}
+                error={error.passErr}
+                helperText={error.passErr ? error.passErr : ''}
                 label='Password'
                 type='password'
+
                 placeholder='password'
                 id="outlined-basic"
                 variant="outlined" value={password} onChange={handlePass}>
@@ -151,6 +172,7 @@ export default function signup() {
                     borderRadius: 10,
                     borderWidth: 1,
                     borderColor: 'salmon',
+                    marginTop: 30
                 }} classes={{
                     root: classes.root, // class name, e.g. `classes-nesting-root-x`
                     label: classes.label,
@@ -207,9 +229,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        height: 1000
-
-
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height
     },
     opacity: {
         backgroundColor: '#83bec4',
