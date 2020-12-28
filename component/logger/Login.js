@@ -1,24 +1,54 @@
 import React, { Component, useState } from 'react';
-import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
-
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import { Paper } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    },
+    label: {
+        textTransform: 'capitalize',
+    },
+    button: {
+        margin: theme.spacing(1),
+    },
+}));
 
 export default function login() {
+    const classes = useStyles();
+
     const history = useHistory();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+    const [errorpass, setErrorPass] = useState('')
 
-    //setting a state for the snack bar 
     const [snackbarOpen, setsnackBarOpen] = useState(false)
-    const [snackBarMes, setsnackBarMes] = useState('')
-    // const [isIncorrectUser, setIsIncorrectUser] = useState(false)
+    const handleEmail = e => {
+        setUsername(e.target.value)
+    }
+
+    const handlePass = e => {
+        setPassword(e.target.value)
+    }
     const close = () => {
         setsnackBarOpen(false)
     }
     const submit = () => {
+        setError('')
+        setErrorPass('')
         const payload = {
             email: username,
             password: password
@@ -31,60 +61,134 @@ export default function login() {
             },
             body: JSON.stringify(payload)
         }).then((response) => {
-            if (response.status === 400) {
-                throw ("Incorrect Password")
+            if (response.status === 200) {
+                return
             }
-            if (response.status === 404) {
-                throw ("User Doesnt Exist")
+            else if (response.status === 400 || response.status === 404) {
+                throw ("Invalid Username or Password")
+            } else {
+                throw ('Uh oh... Something went wrong. Contact support!')
             }
         }).then((res => {
             history.push('/homepage')
-        })).catch(rejected => {
-            setsnackBarOpen(true)
-            setsnackBarMes(rejected)
-        })
+        })).catch(rejectionErr => setError(rejectionErr))
+    }
+
+    const handleLoginErrorView = () => {
+        if (error != '') {
+            return <Paper nativeID="amer" elevation={3} varient="outlined"  >{error}</Paper>
+        }
+
     }
     return (
         <View style={styles.container}>
 
             <Image style={styles.logo} source={require("../../images/logo.png")} />
+            {handleLoginErrorView()}
+            <TextField style={{
+                height: 40,
+                width: 250,
+                borderRadius: 5,
+                color: 'white',
+                marginTop: 1,
+                textAlign: 'center',
+                alignSelf: 'center',
+                marginBottom: 20
+            }}
+                error={error}
+                // helperText={error ? error : ''}
+                placeholder='Email@domain.com'
+                label='Email'
+                id="outlined-basic"
+                variant="outlined"
+                value={username}
+                onChange={handleEmail}
+                InputLabelProps={{
+                    shrink: true
+                }}
+            >
+            </TextField>
 
-            <TextInput style={styles.userinput} placeholder="Email" value={username} onChangeText={(Value) => setUsername(Value)} >
+            <TextField style={{
+                height: 40,
+                width: 250,
+                borderRadius: 5,
 
-            </TextInput>
-
-            <TextInput style={styles.userinputtwo} secureTextEntry={true} placeholder="Password" value={password} onChangeText={(Value) => setPassword(Value)} >
-
-            </TextInput>
+                color: 'white',
+                marginTop: 30,
+                textAlign: 'center',
+                alignSelf: 'center',
+            }}
+                label='Password'
+                type='password'
+                error={errorpass}
+                // helperText={errorpass ? errorpass : ''}
+                placeholder='Password'
+                label='Password'
+                id="outlined-basic"
+                variant="outlined"
+                value={password}
+                onChange={handlePass}
+                InputLabelProps={{
+                    shrink: true
+                }}
+            >
+            </TextField>
             <View style={{ flex: 2, flexDirection: 'row', marginTop: 30 }}>
+                <Button style={{
 
-                <TouchableOpacity style={styles.op} onPress={submit} disabled={username.trim() === "" || password.trim() === ""} >
-                    <Text style={styles.textsty}>Login</Text>
-                </TouchableOpacity>
+                    height: 40,
+                    width: 150,
+                    marginTop: 30,
+                    marginRight: 20,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: 'salmon',
+                    marginTop: 30
+                }} classes={{
+                    root: classes.root, // class name, e.g. `classes-nesting-root-x`
+                    label: classes.label,
+                }}
+                    onClick={() => history.push("/signup")}>
 
-                <TouchableOpacity style={styles.ops} onPress={() => history.push("/signup")}>
-                    <Text style={styles.textst}>Sign Up</Text>
-                </TouchableOpacity>
+                    <Text style={{
+                        fontFamily: 'Baskerville',
+                        fontSize: 20,
+                        paddingLeft: 5,
+                        paddingTop: 9,
+                        marginBottom: 10
+
+                    }}>
+                        Sign Up
+    </Text>
+                </Button>
+
+                <Button style={{
+                    height: 40,
+                    width: 150,
+                    marginTop: 30,
+                    marginRight: 20,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: 'salmon',
+                }} classes={{
+                    root: classes.root, // class name, e.g. `classes-nesting-root-x`
+                    label: classes.label, // class name, e.g. `classes-nesting-label-x`
+                }}
+                    variant="contained" color="salmon"
+                    onClick={submit}>
+                    <Text style={{
+                        fontFamily: 'Baskerville',
+                        fontSize: 20,
+                        paddingLeft: 5,
+                        paddingTop: 9,
+                        marginBottom: 10
+
+                    }}>
+                        Login
+    </Text>
+                </Button>
             </View>
-            <Snackbar
-                //how to display
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                open={snackbarOpen}
-                autoHideDuration={6000}
-                onClose={close}
-                message={snackBarMes}
-
-                action={[
-                    <IconButton
-                        key="close"
-                        aria-label="close"
-                        color='inherit'
-                        onClick={close}
-                    >
-                        X
-                    </IconButton>
-                ]}
-            />
 
 
         </View>
@@ -93,7 +197,6 @@ export default function login() {
 }
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'salmon',
         flexDirection: "colum",
         flex: 1,
         justifyContent: "center",

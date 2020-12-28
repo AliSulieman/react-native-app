@@ -56,11 +56,12 @@ export default function Homepage() {
                     flexDirection: "row",
                     flexWrap: "wrap",
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
+
                 }}
                 renderItem={({ item, index }) => {
                     return (
-                        <ListItem nativeID="wow" containerStyle={{ height: 'fit-content', width: "fit-content", padding: "none" }}   >
+                        <ListItem nativeID="wow" containerStyle={{ height: 'fit-content', width: "fit-content", padding: "none", }}   >
                             <Image source={{ uri: item }} containerStyle={{ width: 200, height: 200 }} PlaceholderContent={< ActivityIndicator />} placeholderStyle={{ height: "100%", width: "100%" }} />
                         </ListItem>)
                 }}

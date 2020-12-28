@@ -1,13 +1,13 @@
 import React, { Component, useState } from 'react';
 import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useHistory } from 'react-router-dom';
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from "prop-types";
 import { Dimensions } from 'react-native';
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -30,14 +30,16 @@ export default function signup() {
 
     const classes = useStyles();
     const history = useHistory();
-
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [fullname, setFullname] = useState('')
-
     const [error, setError] = useState({})
+    const [snackbarOpen, setsnackBarOpen] = useState(false)
+    const [snackBarMes, setsnackBarMes] = useState('')
 
-
+    const close = () => {
+        setsnackBarOpen(false)
+    }
     const validation = () => {
         let isError = false;
         let sit = {}
@@ -65,9 +67,37 @@ export default function signup() {
         const errCheck = validation()
         //console.log(error)
         if (!errCheck) {
-            setFullname('')
-            setPassword('')
-            setUsername('')
+            const payload = {
+                email: username,
+                password: password,
+                fullname: fullname
+            }
+            fetch('http://localhost:8000/add-user/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            })
+                .then((response) => {
+                    if (response.status === 400) {
+                        throw ("User already exists")
+                    }
+
+                    if (response.status === 405) {
+                        throw ("Method Not Allowed")
+                    }
+                    if (response.status === 422) {
+                        throw ("Password is short, Criteria: 6 or more characters")
+                    }
+                })
+                .then((res => {
+                    history.push('/homepage')
+                })).catch(rejected => {
+                    setsnackBarOpen(true)
+                    setsnackBarMes(rejected)
+                })
 
         }
     }
@@ -145,7 +175,8 @@ export default function signup() {
                 borderColor: 'salmon',
                 marginBottom: 30,
                 textAlign: 'center',
-                marginRight: 20
+                marginRight: 20,
+                marginTop: 10
 
             }}
                 InputLabelProps={{
@@ -177,7 +208,8 @@ export default function signup() {
                     root: classes.root, // class name, e.g. `classes-nesting-root-x`
                     label: classes.label,
                 }}
-                >
+                    onClick={() => history.push("/")}>
+
                     <Text style={{
                         fontFamily: 'Baskerville',
                         fontSize: 20,
@@ -217,7 +249,25 @@ export default function signup() {
                 </Button>
             </View>
 
+            <Snackbar
+                //how to display
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={close}
+                message={snackBarMes}
 
+                action={[
+                    <IconButton
+                        key="close"
+                        aria-label="close"
+                        color='inherit'
+                        onClick={close}
+                    >
+                        X
+                    </IconButton>
+                ]}
+            />
         </View >
     )
 
