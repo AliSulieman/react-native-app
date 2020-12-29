@@ -28,14 +28,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function login() {
     const classes = useStyles();
-
     const history = useHistory();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
-    const [errorpass, setErrorPass] = useState('')
 
-    const [snackbarOpen, setsnackBarOpen] = useState(false)
+
+    const [error, setError] = useState('')
+
+
     const handleEmail = e => {
         setUsername(e.target.value)
     }
@@ -43,12 +43,12 @@ export default function login() {
     const handlePass = e => {
         setPassword(e.target.value)
     }
-    const close = () => {
-        setsnackBarOpen(false)
-    }
+
     const submit = () => {
-        setError('')
-        setErrorPass('')
+        if (username === '' & password === '') {
+            setError('Provid an Email and Password')
+            return
+        }
         const payload = {
             email: username,
             password: password
@@ -76,7 +76,11 @@ export default function login() {
 
     const handleLoginErrorView = () => {
         if (error != '') {
-            return <Paper nativeID="amer" elevation={3} varient="outlined"  >{error}</Paper>
+            return <Paper style={{
+                marginBottom: 20,
+                fontSize: 15,
+                backgroundColor: 'salmon'
+            }} elevation={3} varient="outlined" square >{error}</Paper>
         }
 
     }
@@ -121,7 +125,7 @@ export default function login() {
             }}
                 label='Password'
                 type='password'
-                error={errorpass}
+                error={error}
                 // helperText={errorpass ? errorpass : ''}
                 placeholder='Password'
                 label='Password'
@@ -197,6 +201,7 @@ export default function login() {
 }
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#ccc',
         flexDirection: "colum",
         flex: 1,
         justifyContent: "center",

@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Dimensions } from 'react-native';
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
+import { Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,12 +35,10 @@ export default function signup() {
     const [password, setPassword] = useState('')
     const [fullname, setFullname] = useState('')
     const [error, setError] = useState({})
-    const [snackbarOpen, setsnackBarOpen] = useState(false)
-    const [snackBarMes, setsnackBarMes] = useState('')
 
-    const close = () => {
-        setsnackBarOpen(false)
-    }
+    const [err, setErr] = useState('')
+
+
     const validation = () => {
         let isError = false;
         let sit = {}
@@ -61,6 +60,17 @@ export default function signup() {
             setError(sit)
         }
         return isError
+    }
+    const handleLoginErrorView = () => {
+        if (err != '') {
+            return <Paper style={{
+                marginBottom: 20,
+                fontSize: 20,
+
+                backgroundColor: 'salmon'
+
+            }} elevation={3} varient="outlined" square >{err}</Paper>
+        }
     }
 
     const submit = () => {
@@ -95,8 +105,7 @@ export default function signup() {
                 .then((res => {
                     history.push('/homepage')
                 })).catch(rejected => {
-                    setsnackBarOpen(true)
-                    setsnackBarMes(rejected)
+                    setErr(rejected)
                 })
 
         }
@@ -118,6 +127,7 @@ export default function signup() {
         <View style={styles.container}>
 
             <Image style={styles.logo} source={require("../../images/guy.png")} />
+            {handleLoginErrorView()}
 
             <TextField style={{
                 height: 40,
@@ -144,7 +154,6 @@ export default function signup() {
                 }}
             >
             </TextField>
-
 
             <TextField style={{
                 color: '#83bec4',
@@ -191,6 +200,7 @@ export default function signup() {
                 id="outlined-basic"
                 variant="outlined" value={password} onChange={handlePass}>
             </TextField>
+
 
 
             <View style={{ flex: 2, flexDirection: 'row' }}>
@@ -247,34 +257,16 @@ export default function signup() {
                         Submit
                         </Text>
                 </Button>
+
             </View>
 
-            <Snackbar
-                //how to display
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                open={snackbarOpen}
-                autoHideDuration={6000}
-                onClose={close}
-                message={snackBarMes}
-
-                action={[
-                    <IconButton
-                        key="close"
-                        aria-label="close"
-                        color='inherit'
-                        onClick={close}
-                    >
-                        X
-                    </IconButton>
-                ]}
-            />
         </View >
     )
 
 }
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'salmon',
+        backgroundColor: '#ccc',
         flexDirection: "colum",
         flex: 1,
         justifyContent: "center",
