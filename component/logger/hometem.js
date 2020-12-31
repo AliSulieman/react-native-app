@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 export default function login() {
     return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
-            <Image source={require('../../images/ss.jpg')} style={{
+            {/* <Image source={require('../../images/ss.jpg')} style={{
                 marginBottom: 40,
                 height: 900,
                 width: 800
@@ -66,7 +66,7 @@ export default function login() {
                     shrink: true
                 }}
             >
-            </TextField>
+            </TextField> */}
         </View>
     )
 

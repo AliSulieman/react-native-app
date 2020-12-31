@@ -2,13 +2,15 @@ import React, { Component, useState } from 'react';
 import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import { Card, Image, ListItem } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
-
+import { Link } from 'react-router-link'
+import { useHistory } from 'react-router-dom';
 
 
 export default function Homepage() {
 
     const [Search, setSearch] = useState('')
     const [result, setResult] = useState([])
+    const history = useHistory();
 
     const filterURLs = (element, index, arr) => {
         arr[index] = element.urls.full
@@ -17,7 +19,7 @@ export default function Homepage() {
     const submit = () => {
         const key = "zoiVwhEan-E5dkAD4Km_-n2ybWCiytRXyMwKegHc3_0"
 
-        fetch(`https://api.unsplash.com/search/photos/?client_id=${key}&query=${Search}&per_page=12&page=1`, {
+        fetch(`https://api.unsplash.com/search/photos/?client_id=${key}&query=${Search}&per_page=21&page=1`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -30,6 +32,7 @@ export default function Homepage() {
                 let images = response.results
                 images.forEach(filterURLs);
                 setResult(images)
+
             })
             .catch(rejected => {
                 alert(rejected)
@@ -57,18 +60,30 @@ export default function Homepage() {
                     flexWrap: "wrap",
                     justifyContent: "center",
                     alignItems: "center",
+                    backgroundColor: 'salmon',
+                    marginTop: 20
 
                 }}
                 renderItem={({ item, index }) => {
                     return (
-                        <ListItem nativeID="wow" containerStyle={{ height: 'fit-content', width: "fit-content", padding: "none", }}   >
-                            <Image source={{ uri: item }} containerStyle={{ width: 200, height: 200 }} PlaceholderContent={< ActivityIndicator />} placeholderStyle={{ height: "100%", width: "100%" }} />
+                        <ListItem nativeID="wow" containerStyle={{
+                            height: 'fit-content', width: "fit-content", padding: "none",
+                            backgroundColor: 'salmon'
+                        }}   >
+
+                            <Image source={{ uri: item }} containerStyle={{ width: 300, height: 300, marginRight: 10, margin: 20 }}
+                                PlaceholderContent={< ActivityIndicator />}
+                                placeholderStyle={{ height: "200%", width: "100%" }} />
+                            <button onClick={() => history.push("/homepag")}
+                                style={{ justifyContent: 'center' }}>View</button>
                         </ListItem>)
                 }}
                 keyExtractor={
                     (index) => { return index }
                 }
+
             />
+
 
         </View >
     )

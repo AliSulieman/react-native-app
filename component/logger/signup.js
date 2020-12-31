@@ -66,10 +66,11 @@ export default function signup() {
             return <Paper style={{
                 marginBottom: 20,
                 fontSize: 20,
+                backgroundColor: 'gray',
+                color: 'white',
 
-                backgroundColor: 'salmon'
 
-            }} elevation={3} varient="outlined" square >{err}</Paper>
+            }} elevation={24} varient="outlined" square >{err}</Paper>
         }
     }
 
