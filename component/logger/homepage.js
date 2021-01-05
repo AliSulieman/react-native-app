@@ -1,19 +1,46 @@
 import React, { Component, useState } from 'react';
-import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
+import { Text, View, StyleSheet, TextInput, button, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import { Card, Image, ListItem } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import { Link } from 'react-router-link'
 import { useHistory } from 'react-router-dom';
+import { AppBar, TextField } from '@material-ui/core';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
+
+
+const useStyles = makeStyles((theme) =>
+    createStyles({
+        root: {
+            flexGrow: 1,
+        },
+        menuButton: {
+            marginRight: theme.spacing(2),
+        },
+        title: {
+            flexGrow: 1,
+        },
+    }),
+);
 
 export default function Homepage() {
 
     const [Search, setSearch] = useState('')
     const [result, setResult] = useState([])
     const history = useHistory();
+    const classes = useStyles();
+
 
     const filterURLs = (element, index, arr) => {
         arr[index] = element.urls.full
+    }
+    const handleSearch = e => {
+        setSearch(e.target.value)
     }
 
     const submit = () => {
@@ -38,18 +65,59 @@ export default function Homepage() {
                 alert(rejected)
             })
     }
+    const handleLogOut = () => {
+        history.push("/")
+    }
 
     return (
         <View style={styles.container}>
 
-            <TextInput style={styles.text} placeholder="Search For A pic" Value={Search} onChangeText={(Value) => setSearch(Value)}>
+            <AppBar style={{ backgroundColor: "#bc477b" }}>
+                <Toolbar>
+                    <IconButton className={classes.menuButton}>
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" className={classes.title}>
+                        Photo Content
+                    </Typography>
+                    <TextField style={{
+                        borderRadius: 5,
+                        width: 250,
 
-            </TextInput>
-            <TouchableOpacity style={styles.button} onPress={submit} >
+                        backgroundColor: '#ffb2dd',
+
+                    }}
+                        variant="outlined"
+                        placeholder='Search for a photo'
+                        value={Search}
+                        onChange={handleSearch}
+                    >
+
+                    </TextField>
+
+                    <Button style={{
+                        marginRight: 420
+                    }}
+                        onClick={submit}
+                    >Search</Button>
+
+                    <Button color="inherit"
+                        onClick={handleLogOut}
+                    >LogOut
+                    </Button>
+                </Toolbar>
+            </AppBar>
+
+
+
+            {/* <TouchableOpacity style={styles.button} onPress={submit} >
                 <Text>
                     Submit
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+
+
+
 
             <FlatList
                 nativeID="amer"
@@ -61,7 +129,7 @@ export default function Homepage() {
                     justifyContent: "center",
                     alignItems: "center",
                     backgroundColor: 'salmon',
-                    marginTop: 20
+                    marginTop: 100
 
                 }}
                 renderItem={({ item, index }) => {
@@ -99,7 +167,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#83bec4',
         color: 'white',
-        marginTop: 50,
+        marginTop: 100,
         textAlign: 'center',
         alignSelf: 'center',
     },
@@ -107,7 +175,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#83bec4',
         height: 40,
         width: 150,
-        marginTop: 30,
+        marginTop: 60,
         marginRight: 20,
         borderRadius: 10,
         borderWidth: 1,

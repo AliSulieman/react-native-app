@@ -70,7 +70,7 @@ export default function login() {
                 throw ('Uh oh... Something went wrong. Contact support!')
             }
         }).then((res => {
-            history.push('/homepage')
+            history.push('/homepag')
         })).catch(rejectionErr => setError(rejectionErr))
     }
 
@@ -190,7 +190,7 @@ export default function login() {
 
                     }}>
                         Login
-    </Text>
+                     </Text>
                 </Button>
             </View>
 
