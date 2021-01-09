@@ -12,8 +12,10 @@ import {
 } from "react-router-dom";
 import signup from './component/logger/signup';
 import Homepage from './component/logger/homepage'
-//import login from './component/logger/Login';
 
+import Weather from './component/logger/weather';
+
+import Like from './component/logger/fav';
 
 export default class App extends React.Component {
 
@@ -23,10 +25,12 @@ export default class App extends React.Component {
       < View >
 
         <Router>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Homepage} />
           <Route exact path="/signup" component={signup} />
-          <Route exact path="/homepage" component={Homepage} />
+          {/* <Route exact path="/homepage" component={Homepage} /> */}
           <Route exact path="/homepag" component={HomeTem} />
+          <Route exact path="/ali" component={Like} />
+
 
         </Router>
 
