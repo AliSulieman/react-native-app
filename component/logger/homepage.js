@@ -15,7 +15,7 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import fav from './Fav';
+
 import Fav from './Fav';
 
 
@@ -76,8 +76,6 @@ export default function Homepage() {
                 let images = response.results
                 images.forEach(filterURLs);
                 setResult(images)
-
-
             })
             .catch(rejected => {
                 alert(rejected)
@@ -88,6 +86,7 @@ export default function Homepage() {
     }
 
     return (
+
         <View style={styles.container}>
 
             <AppBar style={{ backgroundColor: "#bc477b" }}>
@@ -182,8 +181,12 @@ export default function Homepage() {
                 }
 
             />
-            {img.length != 0 && <Fav data={img}></Fav>}
+
+            {/* {img.length != 0 && <Fav data={img}> </Fav>} */}
+
+
         </View >
+
     )
 }
 const styles = StyleSheet.create({
