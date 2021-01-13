@@ -15,9 +15,7 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-
-import Fav from './Fav';
-
+import identifier from "./Login"
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -62,6 +60,7 @@ export default function Homepage() {
 
     const submit = () => {
         const key = "zoiVwhEan-E5dkAD4Km_-n2ybWCiytRXyMwKegHc3_0"
+        console.log(identifier + "alosh")
 
         fetch(`https://api.unsplash.com/search/photos/?client_id=${key}&query=${Search}&per_page=24&page=1`, {
             method: 'GET',
@@ -84,6 +83,27 @@ export default function Homepage() {
     const handleLogOut = () => {
         history.push("/ali")
     }
+    const information = () => {
+        const load = {
+            images: img,
+
+        }
+        fetch(`http://127.0.0.1:8000/picture/`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(load)
+        }).then((response) => console.log(response.json()))
+            .then((res) => {
+                console.log('hello' + res)
+            }).catch(rejectionErr =>
+                alert('no')
+            )
+    }
+
+
 
     return (
 
@@ -118,7 +138,7 @@ export default function Homepage() {
                         onClick={submit}
                     >Search</Button>
                     <Button color="inherit"
-                        onClick={handleLogOut}
+                        onClick={information}
                     >LogOut
                     </Button>
                 </Toolbar>

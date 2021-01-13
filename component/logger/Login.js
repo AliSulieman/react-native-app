@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { Paper } from '@material-ui/core';
-
+var identifier = 0
 const useStyles = makeStyles((theme) => ({
     root: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function login() {
+
     const classes = useStyles();
     const history = useHistory();
     const [username, setUsername] = useState('')
@@ -60,18 +61,22 @@ export default function login() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload)
-        }).then((response) => {
-            if (response.status === 200) {
-                return
-            }
-            else if (response.status === 400 || response.status === 404) {
-                throw ("Invalid Username or Password")
-            } else {
-                throw ('Uh oh... Something went wrong. Contact support!')
-            }
-        }).then((res => {
-            history.push('/homepag')
-        })).catch(rejectionErr => setError(rejectionErr))
+        }).then((response) => response.json()
+
+            // if (response.status === 200) {
+            //     console.log(response.json())
+            //     return
+            // }
+            // else if (response.status === 400 || response.status === 404) {
+            //     throw ("Invalid Username or Password")
+            // } else {
+            //     throw ('Uh oh... Something went wrong. Contact support!')
+            // }
+        ).then((res) => {
+            identifier = res.id
+            console.log(identifier)
+            history.push("/homepage")
+        }).catch(rejectionErr => setError(rejectionErr))
     }
 
     const handleLoginErrorView = () => {
@@ -199,6 +204,7 @@ export default function login() {
     );
 
 }
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ccc',
